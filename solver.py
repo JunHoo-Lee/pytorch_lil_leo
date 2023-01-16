@@ -220,6 +220,7 @@ class Solver():
                     if self._save_best and sum(val_accs)/len(val_accs) > self._best_acc:
                         self._best_acc = sum(val_accs)/len(val_accs)
                         print("save_best_model.. acc : %4.4f" % self._best_acc)
+                        print()
                         model_name = 'best_model.pt'
                         state = {'step': step, 'val_acc': sum(val_accs)/len(val_accs), 'state_dict': self.model.state_dict()}
                         if not os.path.exists(self.model_dir):
