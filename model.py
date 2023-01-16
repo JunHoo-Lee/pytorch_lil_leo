@@ -28,7 +28,8 @@ class Model(nn.Module):
         self.dropout = nn.Dropout(p=config['dropout'])
         self.inner_l_rate = nn.Parameter(torch.FloatTensor([config['inner_lr_init']]))
         self.finetuning_lr = nn.Parameter(torch.FloatTensor([config['finetuning_lr_init']]))
-        self.finetuning_onestep_lr = nn.Parameter(torch.FloatTensor([config['onestep_lr_init']]))
+        #self.finetuning_onestep_lr = nn.Parameter(torch.FloatTensor([config['onestep_lr_init']]))
+        self.finetuning_onestep_lr = torch.FloatTensor([config['onestep_lr_init']])
 
     def encode(self, inputs):
         # inputs -> [batch, N, K, embed_size]
