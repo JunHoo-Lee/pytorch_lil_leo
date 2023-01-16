@@ -165,7 +165,7 @@ class Solver():
 
 
         # different optim for lrs and params (only l2 penalize on params)
-        lr_list = ['inner_l_rate', 'finetuning_lr']
+        lr_list = ['inner_l_rate', 'finetuning_lr', 'finetuning_onestep_lr']
         params = [x[1] for x in list(filter(lambda kv: kv[0] not in lr_list, self.model.named_parameters()))]
         lr_params = [x[1] for x in list(filter(lambda kv: kv[0] in lr_list, self.model.named_parameters()))]
         optim = torch.optim.Adam(params, lr=self.config['outer_lr'], weight_decay=self.config['l2_penalty_weight'])
