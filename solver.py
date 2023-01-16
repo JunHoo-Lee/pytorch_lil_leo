@@ -217,8 +217,9 @@ class Solver():
                         if not os.path.exists(self.model_dir):
                             os.mkdir(self.model_dir)
                         torch.save(state, os.path.join(self.model_dir, model_name))
-                    elif self._save_best and sum(val_accs)/len(val_accs) > self._best_acc:
+                    if self._save_best and sum(val_accs)/len(val_accs) > self._best_acc:
                         self._best_acc = sum(val_accs)/len(val_accs)
+                        print("save_best_model.. acc : %4.4f" % self._best_acc)
                         model_name = 'best_model.pt'
                         state = {'step': step, 'val_acc': sum(val_accs)/len(val_accs), 'state_dict': self.model.state_dict()}
                         if not os.path.exists(self.model_dir):
