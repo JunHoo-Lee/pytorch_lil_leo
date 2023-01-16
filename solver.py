@@ -115,8 +115,8 @@ class Solver():
         # print info and logging
         if verbose and step % self._print_every_step == 0:
             print()
-            print('(Meta-Train) [Step: %d/%d] Train Loss: %4.4f Train Accuracy: %4.4f Inner_Lr: %4.4f Finetuning_Lr: %4.4f ' \
-                   %(step, self.config['total_steps'], train_loss.item(), train_acc.item(), self.model.inner_l_rate, self.model.finetuning_lr))
+            print('(Meta-Train) [Step: %d/%d] Train Loss: %4.4f Train Accuracy: %4.4f Inner_Lr: %4.4f Finetuning_Lr: %4.4f  onestepFine_Lr: %4.4f ' \
+                   %(step, self.config['total_steps'], train_loss.item(), train_acc.item(), self.model.inner_l_rate, self.model.finetuning_lr, self.model.finetuning_onestep_lr))
 #        
 #        if logging and step % self._print_every_step == 0:
 #            self.exp.log_metric('Training Accuracy', train_acc.item(), step=step)
