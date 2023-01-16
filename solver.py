@@ -115,13 +115,13 @@ class Solver():
             print()
             print('(Meta-Train) [Step: %d/%d] Train Loss: %4.4f Train Accuracy: %4.4f Inner_Lr: %4.4f Finetuning_Lr: %4.4f ' \
                    %(step, self.config['total_steps'], train_loss.item(), train_acc.item(), self.model.inner_l_rate, self.model.finetuning_lr))
-        
+#        
 #        if logging and step % self._print_every_step == 0:
 #            self.exp.log_metric('Training Accuracy', train_acc.item(), step=step)
 #            self.exp.log_metric('Training Loss', train_loss.item(), step=step)
 #            self.exp.log_metric('Inner Lr', float(self.model.inner_l_rate), step=step)
 #            self.exp.log_metric('Finetuning Lr', float(self.model.finetuning_lr), step=step)
-
+#
         for j in range(self.config['finetuning_update_step']):
             train_loss.backward(retain_graph=True)        
             classifier_weights = classifier_weights - self.model.finetuning_lr * classifier_weights.grad
@@ -223,9 +223,6 @@ class Solver():
                         print('Saving checkpoint %s...'%model_name)
                         print()
 
-                if not self._disable_comet:
-#                    self.exp.log_metric('Meta Valid Loss', sum(val_losses)/len(val_losses), step = step)
-#                    self.exp.log_metric('Meta Valid Accuracy', sum(val_accs)/len(val_accs), step = step)
 
     def test(self):
         total_test_steps = self._total_test_instances// self.data_utils.config['test_batch_size']
