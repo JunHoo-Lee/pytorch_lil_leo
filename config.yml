@@ -59,6 +59,7 @@ miniImageNet:
     model:
       inner_lr_init: 1
       finetuning_lr_init: 0.001
+      onestep_lr_init: 0.0001
       dropout: 0.3
       embedding_size: 640
       hidden_size: 64

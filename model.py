@@ -28,6 +28,7 @@ class Model(nn.Module):
         self.dropout = nn.Dropout(p=config['dropout'])
         self.inner_l_rate = nn.Parameter(torch.FloatTensor([config['inner_lr_init']]))
         self.finetuning_lr = nn.Parameter(torch.FloatTensor([config['finetuning_lr_init']]))
+        self.finetuning_onestep_lr = nn.Parameter(torch.FloatTensor([config['onestep_lr_init']]))
 
     def encode(self, inputs):
         # inputs -> [batch, N, K, embed_size]
@@ -92,7 +93,7 @@ class Model(nn.Module):
         outputs = F.log_softmax(outputs, dim = -1)
         return outputs
 
-    def cal_target_loss(self, inputs, classifier_weights, target):
+    def cal_target_loss(self, inputs, classifier_weights, target, onestep_weights = None):
         outputs = self.predict(inputs, classifier_weights)
         # target -> [batch, num_classes]; pred -> [batch, num_classes]
         criterion = nn.NLLLoss()
@@ -106,5 +107,11 @@ class Model(nn.Module):
         corr = (pred == target).sum()
         total = pred.fill_(1).sum()
 
+        if onestep_weights is not None:
+            onestep_outputs = self.predict(inputs, onestep_weights)
+            teacher = outputs.detach()
+            onestep_loss = criterion(onestep_outputs, teacher)
+
+            return target_loss, corr.float()/total.float(), onestep_loss
         return target_loss, corr.float()/total.float()
 

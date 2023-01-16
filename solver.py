@@ -52,7 +52,7 @@ class Solver():
     def run_batch(self, batch, step, train=True):
 
         # do task-train (inner loop)
-        latents, kl_div, encoder_penalty, linearity_penalty = self.meta_train_batch(batch['train']['input'], batch['train']['target'])
+        latents, kl_div, encoder_penalty, linearity_penalty, latents_onestep  = self.meta_train_batch(batch['train']['input'], batch['train']['target'])
 
         # do inner fine-tuning & task-validate (outer loop)
         val_loss, val_acc = self.inner_finetuning(
@@ -63,7 +63,8 @@ class Solver():
                                     batch['val']['target'],
                                     self._verbose and train,
                                     (not self._disable_comet) and train,
-                                    step
+                                    step,
+                                    latents_onestep
                                     )
         orthogonality_penalty = self.orthogonality(list(self.model.decoder.parameters())[0])
 
@@ -101,13 +102,15 @@ class Solver():
 
         encoder_penalty = torch.mean((latents_init - latents) ** 2)
         linearity_penalty = torch.mean((latents_onestep - latents) ** 2)
-        return latents, kl_div, encoder_penalty, linearity_penalty
+        return latents, kl_div, encoder_penalty, linearity_penalty, latents_onestep
 
-    def inner_finetuning(self, latents, inputs, target, val_input, val_target, verbose, logging, step):
+    def inner_finetuning(self, latents, inputs, target, val_input, val_target, verbose, logging, step, latents_onestep):
         
         classifier_weights = self.model.decode(latents)
         classifier_weights.retain_grad()
-        train_loss, train_acc = self.model.cal_target_loss(inputs, classifier_weights, target)
+        onestep_weights = self.model.decode(latents_onestep)
+        onestep_weights.retain_grad()
+        train_loss, train_acc, onestep_loss = self.model.cal_target_loss(inputs, classifier_weights, target, onestep_weights=onestep_weights)
         
         # print info and logging
         if verbose and step % self._print_every_step == 0:
@@ -123,7 +126,9 @@ class Solver():
 #
         for j in range(self.config['finetuning_update_step']):
             train_loss.backward(retain_graph=True)        
+            onestep_loss.backward(retain_graph=True)        
             classifier_weights = classifier_weights - self.model.finetuning_lr * classifier_weights.grad
+            classifier_weights = classifier_weights - self.model.finetuning_onestep_lr * onestep_weights.grad 
             classifier_weights.retain_grad()
             train_loss, _ = self.model.cal_target_loss(inputs, classifier_weights, target)
 
