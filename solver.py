@@ -233,6 +233,7 @@ class Solver():
         total_test_steps = self._total_test_instances// self.data_utils.config['test_batch_size']
 
         #load state dict
+        print(self._load_model)
         state_dict = torch.load(self._load_model)['state_dict']
         self.model.load_state_dict(state_dict)
 
