@@ -32,7 +32,7 @@ miniImageNet:
     model:
       inner_lr_init: 1
       finetuning_lr_init: 0.001
-      onestep_lr_init: 0.0001
+      onestep_lr_init: 0.001
       dropout: 0.3
       embedding_size: 640                  # must match embedding size in 'data'
       hidden_size: 64                      # size of latent code(z)
