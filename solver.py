@@ -128,7 +128,7 @@ class Solver():
             train_loss.backward(retain_graph=True)        
             onestep_loss.backward(retain_graph=True)        
             classifier_weights = classifier_weights - self.model.finetuning_lr * classifier_weights.grad
-            classifier_weights = classifier_weights - self.model.finetuning_onestep_lr * onestep_weights.grad 
+            classifier_weights = classifier_weights - self.model.finetuning_onestep_lr.to(classifier_weights.device) * onestep_weights.grad
             classifier_weights.retain_grad()
             train_loss, _ = self.model.cal_target_loss(inputs, classifier_weights, target)
 
