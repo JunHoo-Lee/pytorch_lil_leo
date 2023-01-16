@@ -110,7 +110,8 @@ class Model(nn.Module):
         if onestep_weights is not None:
             onestep_outputs = self.predict(inputs, onestep_weights)
             teacher = outputs.detach()
-            onestep_loss = criterion(onestep_outputs, teacher)
+            criterion = nn.KLDivLoss(reduction = 'batchmean')
+            onestep_loss = criterion(F.log_softmax(onestep_outputs, dim = -1), F.softmax(teacher, dim = -1))
 
             return target_loss, corr.float()/total.float(), onestep_loss
         return target_loss, corr.float()/total.float()
