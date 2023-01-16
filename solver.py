@@ -116,11 +116,11 @@ class Solver():
             print('(Meta-Train) [Step: %d/%d] Train Loss: %4.4f Train Accuracy: %4.4f Inner_Lr: %4.4f Finetuning_Lr: %4.4f ' \
                    %(step, self.config['total_steps'], train_loss.item(), train_acc.item(), self.model.inner_l_rate, self.model.finetuning_lr))
         
-        if logging and step % self._print_every_step == 0:
-            self.exp.log_metric('Training Accuracy', train_acc.item(), step=step)
-            self.exp.log_metric('Training Loss', train_loss.item(), step=step)
-            self.exp.log_metric('Inner Lr', float(self.model.inner_l_rate), step=step)
-            self.exp.log_metric('Finetuning Lr', float(self.model.finetuning_lr), step=step)
+#        if logging and step % self._print_every_step == 0:
+#            self.exp.log_metric('Training Accuracy', train_acc.item(), step=step)
+#            self.exp.log_metric('Training Loss', train_loss.item(), step=step)
+#            self.exp.log_metric('Inner Lr', float(self.model.inner_l_rate), step=step)
+#            self.exp.log_metric('Finetuning Lr', float(self.model.finetuning_lr), step=step)
 
         for j in range(self.config['finetuning_update_step']):
             train_loss.backward(retain_graph=True)        
@@ -149,15 +149,15 @@ class Solver():
                 "K": self._K
             }
 
-            self.exp = Experiment(
-                                  project_name=self.comet_config['COMET_PROJECT_NAME'],
-                                  workspace=self.comet_config['COMET_WORKSPACE'],
-                                  auto_output_logging=None,
-                                  auto_metric_logging=None,
-                                  display_summary=False,
-                                  )
-            self.exp.log_parameters(hyper_params)
-            self.exp.add_tags(['%d way'%self._N, '%d shot'%self._K, self.data_utils.dataset])
+#            self.exp = Experiment(
+#                                  project_name=self.comet_config['COMET_PROJECT_NAME'],
+#                                  workspace=self.comet_config['COMET_WORKSPACE'],
+#                                  auto_output_logging=None,
+#                                  auto_metric_logging=None,
+#                                  display_summary=False,
+#                                  )
+#            self.exp.log_parameters(hyper_params)
+#            self.exp.add_tags(['%d way'%self._N, '%d shot'%self._K, self.data_utils.dataset])
 
 
         # different optim for lrs and params (only l2 penalize on params)
@@ -179,12 +179,12 @@ class Solver():
                 print('(Meta-Valid) [Step: %d/%d] Total Loss: %4.4f Valid Accuracy: %4.4f'%(step, self.config['total_steps'], val_loss.item(), val_acc.item()))
                 print('(Meta-Valid) [Step: %d/%d] KL: %4.4f Encoder Penalty: %4.4f Orthogonality Penalty: %4.4f'%(step, self.config['total_steps'], kl_div, encoder_penalty, orthogonality_penalty))
                 
-            if not self._disable_comet and step % self._print_every_step == 0:
-                self.exp.log_metric('Total Loss', val_loss.item(), step=step)
-                self.exp.log_metric('Valid Accuracy', val_acc.item(), step=step)
-                self.exp.log_metric('KL div', kl_div.detach().cpu().numpy(), step=step)
-                self.exp.log_metric('Encoder Penalty', encoder_penalty.detach().cpu().numpy(), step=step)
-                self.exp.log_metric('Orthogonality Penalty', orthogonality_penalty.detach().cpu().numpy(), step=step)
+#            if not self._disable_comet and step % self._print_every_step == 0:
+#                self.exp.log_metric('Total Loss', val_loss.item(), step=step)
+#                self.exp.log_metric('Valid Accuracy', val_acc.item(), step=step)
+#                self.exp.log_metric('KL div', kl_div.detach().cpu().numpy(), step=step)
+#                self.exp.log_metric('Encoder Penalty', encoder_penalty.detach().cpu().numpy(), step=step)
+#                self.exp.log_metric('Orthogonality Penalty', orthogonality_penalty.detach().cpu().numpy(), step=step)
 
             val_loss.backward()
             nn.utils.clip_grad_value_(self.model.parameters(), self.config['clip_value'])
@@ -224,8 +224,8 @@ class Solver():
                         print()
 
                 if not self._disable_comet:
-                    self.exp.log_metric('Meta Valid Loss', sum(val_losses)/len(val_losses), step = step)
-                    self.exp.log_metric('Meta Valid Accuracy', sum(val_accs)/len(val_accs), step = step)
+#                    self.exp.log_metric('Meta Valid Loss', sum(val_losses)/len(val_losses), step = step)
+#                    self.exp.log_metric('Meta Valid Accuracy', sum(val_accs)/len(val_accs), step = step)
 
     def test(self):
         total_test_steps = self._total_test_instances// self.data_utils.config['test_batch_size']
