@@ -230,6 +230,7 @@ class Solver():
 
 
     def test(self):
+        print(self._load_model,"load model")
         total_test_steps = self._total_test_instances// self.data_utils.config['test_batch_size']
 
         #load state dict
