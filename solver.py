@@ -53,7 +53,7 @@ class Solver():
     def run_batch(self, batch, step, train=True):
 
         # do task-train (inner loop)
-        latents, kl_div, encoder_penalty = self.meta_train_batch(batch['train']['input'], batch['train']['target'])
+        latents, kl_div, encoder_penalty, linearity_penalty = self.meta_train_batch(batch['train']['input'], batch['train']['target'])
 
         # do inner fine-tuning & task-validate (outer loop)
         val_loss, val_acc = self.inner_finetuning(
@@ -70,7 +70,8 @@ class Solver():
 
         # calculate loss (l2 reg implemented with optimizer)
         total_loss = val_loss + self.config['kl_weight'] * kl_div \
-                   + self.config['encoder_penalty_weight'] * encoder_penalty + self.config['orthogonality_penalty_weight'] * orthogonality_penalty
+                   + self.config['encoder_penalty_weight'] * encoder_penalty + self.config['orthogonality_penalty_weight'] * orthogonality_penalty \
+                   + self.config['linearity_penalty_weight'] * linearity_penalty
         
         return total_loss, val_acc, kl_div, encoder_penalty, orthogonality_penalty
 
@@ -96,8 +97,12 @@ class Solver():
 
             latents = latents - self.model.inner_l_rate * latents.grad.data
 
+            if i == 0:
+                latents_onestep = latents_init - self.config['inner_update_step']* self.model.inner_l_rate * latents_init.grad.data
+
         encoder_penalty = torch.mean((latents_init - latents) ** 2)
-        return latents, kl_div, encoder_penalty
+        linearity_penalty = torch.mean((latents_onestep - latents) ** 2)
+        return latents, kl_div, encoder_penalty, linearity_penalty
 
     def inner_finetuning(self, latents, inputs, target, val_input, val_target, verbose, logging, step):
         

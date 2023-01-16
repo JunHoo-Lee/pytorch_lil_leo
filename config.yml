@@ -27,6 +27,7 @@ miniImageNet:
       kl_weight: 0.001                     # beta in leo paper
       encoder_penalty_weight: 1.0e-9       # gamma in leo paper
       l2_penalty_weight: 1.0e-8            # lambda1 in leo paper
+      linearity_penalty_weight: 0.001
       orthogonality_penalty_weight: 0.1    # lambda2 in leo paper
     model:
       inner_lr_init: 1
@@ -53,6 +54,7 @@ miniImageNet:
       kl_weight: 0.001
       encoder_penalty_weight: 1.0e-9
       l2_penalty_weight: 1.0e-8
+      linearity_penalty_weight: 0.001
       orthogonality_penalty_weight: 0.1
     model:
       inner_lr_init: 1
