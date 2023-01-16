@@ -136,7 +136,7 @@ class Solver():
 
         val_loss, val_accuracy = self.model.cal_target_loss(val_input, classifier_weights, val_target)
 
-        return val_loss, val_accuracy, onesep_loss
+        return val_loss, val_accuracy, onestep_loss
 
 
     def train(self):
