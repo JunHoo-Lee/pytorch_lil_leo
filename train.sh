@@ -7,5 +7,6 @@ python3 main.py -train \
 		-embedding_dir /data/embeddings/ \
 		-dataset miniImageNet \
 		-exp_name toy-0511 \
+        -save_best \
 		-save_checkpoint 
 		

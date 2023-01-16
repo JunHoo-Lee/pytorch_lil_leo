@@ -37,6 +37,8 @@ class Solver():
         self._total_test_instances = args.total_test_instances
         self._total_val_steps = args.total_val_steps
         self._save_checkpoint = args.save_checkpoint
+        self.one_step_lr = args.one_step_lr
+        self.linearity_penalty_weight = args.linearity_penalty_weight
         self._load_model = args.load
         self._save_best = args.save_best 
         if self._save_best:
@@ -55,7 +57,7 @@ class Solver():
         latents, kl_div, encoder_penalty, linearity_penalty, latents_onestep  = self.meta_train_batch(batch['train']['input'], batch['train']['target'])
 
         # do inner fine-tuning & task-validate (outer loop)
-        val_loss, val_acc = self.inner_finetuning(
+        val_loss, val_acc, onestep_loss = self.inner_finetuning(
                                     latents, 
                                     batch['train']['input'], 
                                     batch['train']['target'], 
@@ -71,7 +73,7 @@ class Solver():
         # calculate loss (l2 reg implemented with optimizer)
         total_loss = val_loss + self.config['kl_weight'] * kl_div \
                    + self.config['encoder_penalty_weight'] * encoder_penalty + self.config['orthogonality_penalty_weight'] * orthogonality_penalty \
-                   + self.config['linearity_penalty_weight'] * linearity_penalty
+                   + self.linearity_penalty_weight * linearity_penalty + self.one_step_lr * onestep_loss
         
         return total_loss, val_acc, kl_div, encoder_penalty, orthogonality_penalty
 
@@ -126,15 +128,15 @@ class Solver():
 #
         for j in range(self.config['finetuning_update_step']):
             train_loss.backward(retain_graph=True)        
-            onestep_loss.backward(retain_graph=True)        
+            # onestep_loss.backward(retain_graph=True)        
             classifier_weights = classifier_weights - self.model.finetuning_lr * classifier_weights.grad
-            classifier_weights = classifier_weights - self.model.finetuning_onestep_lr.to(classifier_weights.device) * onestep_weights.grad
+            # classifier_weights = classifier_weights - self.model.finetuning_onestep_lr.to(classifier_weights.device) * onestep_weights.grad
             classifier_weights.retain_grad()
             train_loss, _ = self.model.cal_target_loss(inputs, classifier_weights, target)
 
         val_loss, val_accuracy = self.model.cal_target_loss(val_input, classifier_weights, val_target)
 
-        return val_loss, val_accuracy
+        return val_loss, val_accuracy, onesep_loss
 
 
     def train(self):
@@ -230,11 +232,9 @@ class Solver():
 
 
     def test(self):
-        print(self._load_model,"load model")
         total_test_steps = self._total_test_instances// self.data_utils.config['test_batch_size']
 
         #load state dict
-        print(self._load_model)
         state_dict = torch.load(self._load_model)['state_dict']
         self.model.load_state_dict(state_dict)
 

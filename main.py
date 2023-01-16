@@ -24,6 +24,9 @@ def parse():
 
     parser.add_argument('-N', default=5, type=int, help='N way classificatoin')
     parser.add_argument('-K', default=1, type=int, help='K shot')
+    parser.add_argument('-one_step_lr', default=0.000, type=float, help='learning rate for one step')
+    parser.add_argument('-linearity_penalty_weight', default=0.000, type=float, help='weight for linearity penalty')
+
     
     parser.add_argument('-no_cuda', action='store_true')
 
