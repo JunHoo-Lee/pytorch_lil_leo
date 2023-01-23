@@ -1,0 +1,192 @@
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2627 Meta Test Accuracy: 0.5696
+==================================================
+
+leo_onesteplr_0.1_linearity_0.00
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2627 Meta Test Accuracy: 0.5688
+==================================================
+
+leo_onesteplr_0.1_linearity_0.0001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2613 Meta Test Accuracy: 0.5700
+==================================================
+
+leo_onesteplr_0.1_linearity_0.001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2627 Meta Test Accuracy: 0.5708
+==================================================
+
+leo_onesteplr_0.1_linearity_0.01
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2623 Meta Test Accuracy: 0.5698
+==================================================
+
+leo_onesteplr_0.1_linearity_0.1
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2764 Meta Test Accuracy: 0.5618
+==================================================
+
+leo_onesteplr_0.1_linearity_1.0
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2614 Meta Test Accuracy: 0.5681
+==================================================
+
+leo_onesteplr_0.01_linearity_0.00
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2578 Meta Test Accuracy: 0.5718
+==================================================
+
+leo_onesteplr_0.01_linearity_0.0001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2573 Meta Test Accuracy: 0.5717
+==================================================
+
+leo_onesteplr_0.01_linearity_0.001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2579 Meta Test Accuracy: 0.5714
+==================================================
+
+leo_onesteplr_0.01_linearity_0.01
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2625 Meta Test Accuracy: 0.5696
+==================================================
+
+leo_onesteplr_0.01_linearity_0.1
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2721 Meta Test Accuracy: 0.5655
+==================================================
+
+leo_onesteplr_0.01_linearity_1.0
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2609 Meta Test Accuracy: 0.5694
+==================================================
+
+leo_onesteplr_0.001_linearity_0.00
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2598 Meta Test Accuracy: 0.5695
+==================================================
+
+leo_onesteplr_0.001_linearity_0.0001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2604 Meta Test Accuracy: 0.5695
+==================================================
+
+leo_onesteplr_0.001_linearity_0.001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2608 Meta Test Accuracy: 0.5689
+==================================================
+
+leo_onesteplr_0.001_linearity_0.01
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2610 Meta Test Accuracy: 0.5722
+==================================================
+
+leo_onesteplr_0.001_linearity_0.1
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2747 Meta Test Accuracy: 0.5625
+==================================================
+
+leo_onesteplr_0.001_linearity_1.0
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2608 Meta Test Accuracy: 0.5699
+==================================================
+
+leo_onesteplr_0.0001_linearity_0.00
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2599 Meta Test Accuracy: 0.5694
+==================================================
+
+leo_onesteplr_0.0001_linearity_0.0001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2610 Meta Test Accuracy: 0.5707
+==================================================
+
+leo_onesteplr_0.0001_linearity_0.001
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2613 Meta Test Accuracy: 0.5685
+==================================================
+
+leo_onesteplr_0.0001_linearity_0.01
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2614 Meta Test Accuracy: 0.5707
+==================================================
+
+leo_onesteplr_0.0001_linearity_0.1
+Loading data from /data/embeddings/miniImageNet/center/test_embeddings.pkl...
+Finish constructing test data, total 20 classes.
+
+==================================================
+Meta Test Loss: 1.2743 Meta Test Accuracy: 0.5624
+==================================================
+
+leo_onesteplr_0.0001_linearity_1.0
